@@ -5,6 +5,9 @@ import cors from "cors";
 
 import { ENV } from "./config/env.js";
 import { dbConnect } from "./config/db.js";
+import "./config/passportConfig.js";
+
+import authRoutes from "./routes/authRoutes.route.js";
 
 const app = express();
 
@@ -36,6 +39,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //todo: Routes
+app.use("/api/auth", authRoutes);
 
 //todo: Server Listen
 app.listen(ENV.PORT, () => {
