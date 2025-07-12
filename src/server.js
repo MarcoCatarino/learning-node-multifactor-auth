@@ -4,6 +4,7 @@ import passport from "passport";
 import cors from "cors";
 
 import { ENV } from "./config/env.js";
+import { dbConnect } from "./config/db.js";
 
 const app = express();
 
@@ -39,7 +40,8 @@ app.use(passport.session());
 //todo: Server Listen
 app.listen(ENV.PORT, () => {
   try {
-    // connectedDB();
+    dbConnect();
+
     console.log(`Server in PORT: ${ENV.PORT}`);
   } catch (error) {
     console.error({ error: "Server Error!" });
