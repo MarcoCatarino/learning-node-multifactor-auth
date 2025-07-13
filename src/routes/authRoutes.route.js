@@ -28,12 +28,33 @@ router.post("/logout", logoutController);
 
 // todo: 2FA (2 Factor Authentication)
 //? 2FA SetUp Route
-router.post("/2fa/setup", setup2FAController);
+router.post(
+  "/2fa/setup",
+  (req, res, next) => {
+    if (req.isAuthenticated()) return next();
+    res.status(401).json({ message: `Unauthorized` });
+  },
+  setup2FAController
+);
 
 //? 2FA Verify Token Route
-router.post("/2fa/verify", verify2FAController);
+router.post(
+  "/2fa/verify",
+  (req, res, next) => {
+    if (req.isAuthenticated()) return next();
+    res.status(401).json({ message: `Unauthorized User` });
+  },
+  verify2FAController
+);
 
 //? 2FA Reset Token Route
-router.post("/2fa/reset", reset2FAController);
+router.post(
+  "/2fa/reset",
+  (req, res, next) => {
+    if (req.isAuthenticated()) return next();
+    res.status(401).json({ message: `Unauthorized User` });
+  },
+  reset2FAController
+);
 
 export default router;
